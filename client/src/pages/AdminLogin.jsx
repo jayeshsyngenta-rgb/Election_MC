@@ -1,8 +1,7 @@
-
-
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { LogIn } from "lucide-react";
+import { useNavigate, Link } from "react-router-dom";
+import { LogIn, User, Lock, ArrowLeft } from "lucide-react";
+import "./adminlogin.css";
 import { api } from "../api";
 
 export default function AdminLogin() {
@@ -16,57 +15,79 @@ export default function AdminLogin() {
     e.preventDefault();
     setError("");
     setLoading(true);
+
     try {
       const data = await api.adminLogin(username, password);
-      localStorage.setItem("adminToken", data.token);
-      localStorage.setItem("adminUsername", data.username);
+      localStorage.setItem("adminDashToken", data.token);
+      localStorage.setItem("adminDashUsername", username);
       navigate("/admin/dashboard");
     } catch (err) {
-      setError(err.message || "Login failed");
+      setError(err.message || "Invalid username or password");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="app-shell">
-      <main className="app-main" style={{ maxWidth: 420, margin: "80px auto" }}>
-        <section className="card">
-          <h2 className="section-title">
-            <LogIn size={20} />
-            ADMIN LOGIN
-          </h2>
+    <div className="admin-login-page">
+      <div className="admin-login-wrap">
+        <section className="admin-login-card">
+          <div className="admin-login-icon">
+            <Lock size={22} />
+          </div>
 
-          <form onSubmit={handleSubmit} className="filters-grid" style={{ gridTemplateColumns: "1fr" }}>
-            <div className="field">
-              <label>Username</label>
-              <input
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                autoFocus
-                required
-              />
+          <h1 className="admin-login-card-title">Admin login</h1>
+          <p className="admin-login-card-desc">Sign in to manage voter records</p>
+
+          <form onSubmit={handleSubmit} className="admin-login-form">
+            <div>
+              <label htmlFor="username">Username</label>
+              <div className="admin-field-icon">
+                <User size={16} className="admin-field-icon-svg" />
+                <input
+                  id="username"
+                  type="text"
+                  placeholder="admin"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  autoFocus
+                  required
+                />
+              </div>
             </div>
 
-            <div className="field">
-              <label>Password</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+            <div>
+              <label htmlFor="password">Password</label>
+              <div className="admin-field-icon">
+                <Lock size={16} className="admin-field-icon-svg" />
+                <input
+                  id="password"
+                  type="password"
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
             </div>
 
-            {error && <p style={{ color: "#dc3545", margin: 0 }}>{error}</p>}
+            {error && <p className="admin-login-error">{error}</p>}
 
-            <button className="btn btn-navy" type="submit" disabled={loading}>
-              {loading ? "Signing in..." : "Sign In"}
+            <button className="admin-btn-login" type="submit" disabled={loading}>
+              {loading ? "Signing in..." : "Log in"}
+              <LogIn size={18} />
             </button>
           </form>
+
+          {/* Change "/" to wherever the user/voter login page actually lives */}
+          <Link to="/" className="admin-login-back">
+            <ArrowLeft size={15} />
+            Back to voter login
+          </Link>
+
+          <p className="admin-login-footer">Authorized personnel only</p>
         </section>
-      </main>
+      </div>
     </div>
   );
 }

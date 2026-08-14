@@ -1,68 +1,34 @@
-
-
-import { SearchCheck, CalendarDays, Clock, User, ShieldCheck } from "lucide-react";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { ShieldCheck } from "lucide-react";
+import "./header-additions.css";
+import chiefPhoto from "../assets/mccc.png";
 
 export default function Header() {
-  const [time, setTime] = useState(new Date());
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTime(new Date());
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  const today = new Date().toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  });
-
-  const currentTime = time.toLocaleTimeString("en-IN");
-
   return (
-    <header className="header">
-      <div className="header-inner">
-        {/* Left Side */}
-        <div className="header-brand">
-          <div className="header-icon">
-            <SearchCheck size={26} />
-          </div>
+    <>
+      <header className="header">
+        <div className="header-inner">
+          <div className="header-brand">
+            <div className="header-photo">
+              <img src={chiefPhoto} alt="Shri Mangesh Chivate" />
+            </div>
 
-          <h1 className="header-title">VOTER SEARCH PORTAL</h1>
+            <div className="header-title-group">
+              <h1 className="header-title">श्री मंगेश चिवटे</h1>
+              <p className="header-subtitle">उमेदवार – पुणे विभाग</p>
+              <p className="header-subtitle">शिक्षक मतदारसंघ निवडणूक 2026</p>
+              <p className="header-subtitle header-subtitle--muted">Voter Search Portal</p>
+            </div>
+          </div>
         </div>
+      </header>
 
-        {/* Right Side */}
-        <div className="header-right">
-          <div className="header-date">
-            <CalendarDays size={18} />
-            <span>Date : {today}</span>
-          </div>
-
-          <div className="header-time">
-            <Clock size={18} />
-            <span>Time : {currentTime}</span>
-          </div>
-
-          <div className="header-user">
-            <User size={22} />
-            <span>Admin</span>
-          </div>
-
-          <button
-            className="btn btn-navy header-admin-btn"
-            onClick={() => navigate("/admin/login")}
-          >
-            <ShieldCheck size={18} />
-            Admin
-          </button>
-        </div>
+      <div className="header-admin-btn-row no-print">
+        <Link to="/admin/login" className="header-admin-btn">
+          <ShieldCheck size={16} />
+          Admin
+        </Link>
       </div>
-    </header>
+    </>
   );
 }
-

@@ -1,4 +1,4 @@
-.counter {
+/* .counter {
   font-size: 16px;
   padding: 5px 10px;
   border-radius: 5px;
@@ -180,5 +180,563 @@
   &::after {
     right: 0;
     border-right-color: var(--border);
+  }
+} */
+
+
+
+/* ===== Base ===== */
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  /* was #eef4ff (light blue) - now the warm cream tone from the orange theme */
+  background: #fdf6ee;
+  color: #1f2937;
+}
+
+/* ===== Header ===== */
+.header {
+  /* was solid navy #0b3d91 - now the orange gradient from the Shivsena header */
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  color: white;
+  padding: 20px 30px;
+  border-radius: 0 0 15px 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+/* alias kept for Header.jsx (uses header-brand instead of header-left) */
+.header-left,
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.header-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.header-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.header-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.header-title {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+/* subtitle line under the main title, e.g.
+   "सामान्य नागरिकांसाठी वैद्यकीय व इतर मदतीसाठी नोंदणी फॉर्म" */
+.header-subtitle {
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0.92;
+  margin: 0;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.header-date,
+.header-time,
+.header-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  color: #1f2937;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Login / admin button that sits in the header (e.g. "प्रशासन लॉगिन") */
+.header-login-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.header-login-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* ===== Page container ===== */
+.app-main,
+.page-content {
+  max-width: 1400px;
+  margin: 30px auto;
+  padding: 0 30px 60px;
+}
+
+/* ===== Card (shared by filters + results panels) ===== */
+.card {
+  background: white;
+  border-radius: 14px;
+  padding: 24px 28px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* alias kept for SearchFilters.jsx / SearchResults.jsx (section-title instead of card-title) */
+.card-title,
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #ea580c;
+}
+
+/* ===== Search Filters ===== */
+.filters-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  align-items: end;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.field label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #374151;
+}
+
+.field select {
+  width: 100%;
+  height: 45px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 14px;
+  background: white;
+  cursor: pointer;
+}
+
+.field select:focus {
+  outline: none;
+  border-color: #ea580c;
+  box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15);
+}
+
+.field select:disabled {
+  background: #f3f4f6;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.filters-actions {
+  margin-top: 20px;
+}
+
+/* ===== Buttons ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 45px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.15s ease, transform 0.05s ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* alias kept for SearchFilters.jsx (uses btn-navy instead of btn-primary) */
+.btn-primary,
+.btn-navy {
+  /* was navy #0b5ed7 - now the theme orange */
+  background: #f97316;
+  color: white;
+}
+
+.btn-primary:hover,
+.btn-navy:hover {
+  filter: brightness(1.08);
+}
+
+.btn-success {
+  background: #16a34a;
+  color: white;
+}
+
+.btn-success:hover {
+  filter: brightness(1.08);
+}
+
+.btn-danger {
+  background: #dc2626;
+  color: white;
+}
+
+.btn-danger:hover {
+  filter: brightness(1.08);
+}
+
+.btn-outline {
+  background: white;
+  color: #ea580c;
+  border: 1px solid #ea580c;
+}
+
+.btn-outline:hover {
+  background: #fff7ed;
+}
+
+/* ===== Info banner ===== */
+.info-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  color: #9a3412;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-top: 18px;
+  font-size: 14px;
+}
+
+/* ===== Search Result header row ===== */
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.results-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 0 12px;
+  height: 42px;
+  min-width: 240px;
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  font-size: 14px;
+  width: 100%;
+}
+
+/* ===== Table ===== */
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+}
+
+/* table-layout: fixed + min-width is the actual fix for the column-
+   overlap bug: with the default "auto" layout, the browser has to
+   guess each column's width from content, and once two columns
+   (Address / Institute) were both allowed to wrap instead of
+   truncate, the guess broke down and their text rendered on top of
+   itself. Fixed layout removes the guessing - every column's width
+   comes from the col-* classes below (set on the <th> cells), and if
+   the table is narrower than min-width the .table-wrapper's
+   horizontal scroll kicks in instead of columns collapsing. */
+table.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  table-layout: fixed;
+  min-width: 1150px;
+}
+
+.results-table thead {
+  /* was navy #0b3d91 - now the theme orange */
+  background: #ea580c;
+  color: white;
+}
+
+.results-table th {
+  text-align: left;
+  padding: 14px 18px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.results-table td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.col-address,
+.col-institute {
+  white-space: normal;   /* meant to override the above, but doesn't */
+}
+
+.results-table tbody tr:hover {
+  background: #fff7ed;
+}
+
+.results-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.voter-name {
+  font-weight: 600;
+  color: #111827;
+}
+
+.institute-link {
+  color: #ea580c;
+}
+
+/* ===== Fixed column-width classes =====
+   Applied on <th> to size the column (table-layout: fixed reads
+   widths from the first row / header cells) and on the matching <td>
+   to enable wrapping where needed. Shared by both the volunteer
+   Dashboard table (SearchResults.jsx) and the Admin Dashboard voter
+   table (AdminDashboard.jsx), even though their column order differs,
+   since both use these same class names rather than nth-child. */
+.col-id {
+  width: 70px;
+}
+
+.col-name {
+  width: 170px;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.col-mobile {
+  width: 110px;
+}
+
+.col-district {
+  width: 130px;
+}
+
+.col-status {
+  width: 150px;
+  white-space: normal;
+}
+
+.col-address,
+.col-institute {
+  width: 230px;
+  white-space: normal;
+  word-break: break-word;
+  overflow: visible;
+  text-overflow: unset;
+}
+
+.empty-row {
+  text-align: center;
+  color: #6b7280;
+  padding: 24px 18px;
+  white-space: normal;
+}
+
+/* ===== Click-to-expand cell (Address / Institute) =====
+   Replaces the old title-attribute tooltip, which auto-hid after ~2s
+   and made the text impossible to select/copy. Clicking the cell now
+   opens a small modal with the full value and a Copy button that
+   stays open until the user closes it or clicks outside. */
+.clickable-cell {
+  cursor: pointer;
+}
+
+.clickable-cell:hover {
+  background: #fff7ed;
+  text-decoration: underline;
+  text-decoration-color: #fdba74;
+}
+
+.cell-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 20px;
+}
+
+.cell-modal {
+  background: #fff;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 480px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.cell-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  color: #fff;
+  padding: 14px 18px;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.cell-modal-close {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  opacity: 0.85;
+}
+
+.cell-modal-close:hover {
+  opacity: 1;
+}
+
+.cell-modal-body {
+  padding: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #1f2937;
+  white-space: normal;
+  word-break: break-word;
+  overflow-y: auto;
+  user-select: text;
+}
+
+.cell-modal-footer {
+  padding: 14px 18px;
+  border-top: 1px solid #eef0f4;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Voter Name on Admin Dashboard: keep it on one line instead of
+   wrapping the row taller. Overrides .col-name's white-space/word-break.
+   Full name is still reachable via the click-to-expand modal
+   (.clickable-cell) since it's truncated with an ellipsis here. */
+.col-name-nowrap {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ===== Mobile table: freeze Voter Name column, improve spacing ===== */
+@media (max-width: 768px) {
+  .app-main,
+  .page-content {
+    padding: 0 14px 40px;
+  }
+
+  .card {
+    padding: 18px 16px;
+  }
+
+  .results-table th,
+  .results-table td {
+    padding: 12px 16px;
+  }
+
+  .table-wrapper {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Freeze the Voter Name column so it stays visible while the rest
+     of the table scrolls horizontally underneath it. */
+  .results-table th.col-name,
+  .results-table td.col-name {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    background: #fff;
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .results-table thead th.col-name {
+    background: #ea580c;
+    z-index: 3;
+  }
+
+  .results-table tbody tr:hover td.col-name {
+    background: #fff7ed;
+  }
+
+  .results-table tbody tr.row-done td.col-name,
+  .results-table tbody tr.row-not-done td.col-name,
+  .results-table tbody tr.row-pending td.col-name {
+    background: #fff;
   }
 }

@@ -1,0 +1,230 @@
+/* ========================================================================
+   Admin Login — simple, clean, orange theme
+   Classes are prefixed with "admin-" so they don't collide with the
+   voter login page's CSS (which reuses names like .login-page,
+   .login-card, .field-icon, .btn-login, etc.)
+   ======================================================================== */
+
+.admin-login-page {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fdf6ee !important;
+  font-family: "Segoe UI", Arial, sans-serif;
+  padding: 20px;
+  padding-top: max(20px, env(safe-area-inset-top));
+  padding-bottom: max(20px, env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+
+.admin-login-page * {
+  box-sizing: border-box;
+}
+
+.admin-login-wrap {
+  width: 100%;
+  max-width: 360px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.admin-login-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ea580c;
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 6px 2px;
+  cursor: pointer;
+}
+
+.admin-login-back:hover {
+  text-decoration: underline;
+}
+
+.admin-login-card {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 32px 24px 26px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.admin-login-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #fff7ed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 18px;
+  color: #ea580c;
+}
+
+.admin-login-card-title {
+  font-size: 20px;
+  font-weight: 700 !important;
+  color: #1f2937;
+  margin: 0 0 6px;
+  text-align: center !important;
+  width: 100%;
+}
+
+.admin-login-card-desc {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0 0 24px;
+}
+
+.admin-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
+}
+
+.admin-login-form label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.admin-field-icon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 0 12px;
+  height: 48px;
+  background: #fff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.admin-field-icon:focus-within {
+  border-color: #ea580c;
+  box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15);
+}
+
+.admin-field-icon-svg {
+  color: #9ca3af;
+  flex-shrink: 0;
+}
+
+.admin-field-icon:focus-within .admin-field-icon-svg {
+  color: #ea580c;
+}
+
+.admin-field-icon input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 16px; /* stops iOS Safari auto-zoom on focus */
+  font-family: inherit;
+  color: #1f2937;
+  min-width: 0;
+  height: 100%;
+}
+
+.admin-field-icon input::placeholder {
+  color: #9ca3af;
+}
+
+.admin-login-error {
+  margin: 0;
+  font-size: 13px;
+  color: #dc2626;
+  background: none;
+}
+
+.admin-btn-login {
+  margin-top: 4px;
+  height: 48px;
+  border: none;
+  border-radius: 8px;
+  background: #ea580c;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: filter 0.15s ease, transform 0.05s ease;
+  width: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.admin-btn-login:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.admin-btn-login:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.admin-btn-login:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.admin-btn-login:focus-visible,
+.admin-login-back:focus-visible {
+  outline: 2px solid #ea580c;
+  outline-offset: 2px;
+}
+
+.admin-field-icon input:focus-visible {
+  outline: none;
+}
+
+.admin-login-footer {
+  text-align: center;
+  font-size: 12px;
+  color: #9ca3af;
+  margin: 20px 0 0;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 480px) {
+  .admin-login-page {
+    padding: 16px;
+    align-items: center;
+  }
+
+  .admin-login-card {
+    padding: 28px 20px 22px;
+    border-radius: 16px;
+  }
+
+  .admin-login-card-title {
+    font-size: 19px;
+  }
+}
+
+@media (max-height: 640px) {
+  .admin-login-page {
+    align-items: flex-start;
+    padding-top: max(32px, env(safe-area-inset-top));
+  }
+}

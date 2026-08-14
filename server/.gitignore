@@ -1,4 +1,16 @@
+# node_modules/
+# .env
+# client/node_modules/
+# server/node_modules/
+
+
 node_modules/
 .env
-client/node_modules/
-server/node_modules/
+.env.local
+
+# Test/output artifacts you don't want in the repo
+test-output.pdf
+test-pdf.js
+
+# Data files that shouldn't be public
+data/*.xlsx

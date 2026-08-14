@@ -2,14 +2,13 @@
 body {
   margin: 0;
   font-family: "Segoe UI", Arial, sans-serif;
-  /* was #f3f4f8 (neutral grey) - now the lightest blue tone */
-  background: #eef4ff;
+  background: #fdf6ee;
   color: #1f2937;
 }
 
 /* ===== Header ===== */
 .header {
-  background: #0b3d91; /* deep navy-blue like the screenshot */
+  background: linear-gradient(135deg, #f97316, #ea580c);
   color: white;
   padding: 20px 30px;
   border-radius: 0 0 15px 15px;
@@ -24,7 +23,6 @@ body {
   gap: 14px;
 }
 
-/* alias kept for Header.jsx (uses header-brand instead of header-left) */
 .header-left,
 .header-brand {
   display: flex;
@@ -33,19 +31,40 @@ body {
 }
 
 .header-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.15);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.header-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.header-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .header-title {
   font-size: 24px;
   font-weight: 800;
   letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.header-subtitle {
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0.92;
   margin: 0;
 }
 
@@ -71,6 +90,25 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+.header-login-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.header-login-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
 /* ===== Page container ===== */
 .app-main,
 .page-content {
@@ -79,7 +117,7 @@ body {
   padding: 0 30px 60px;
 }
 
-/* ===== Card (shared by filters + results panels) ===== */
+/* ===== Card ===== */
 .card {
   background: white;
   border-radius: 14px;
@@ -88,7 +126,6 @@ body {
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 
-/* alias kept for SearchFilters.jsx / SearchResults.jsx (section-title instead of card-title) */
 .card-title,
 .section-title {
   display: flex;
@@ -96,11 +133,12 @@ body {
   gap: 10px;
   font-size: 18px;
   font-weight: 700;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  color: #ea580c;
 }
-
-/* card variants referenced in components; no extra rules needed beyond .card,
-   kept as hooks in case you want to style them differently later */
+.results-card {
+  padding-top: 14px; /* was 24px via .card */
+}
 
 /* ===== Search Filters ===== */
 .filters-grid {
@@ -135,8 +173,8 @@ body {
 
 .field select:focus {
   outline: none;
-  border-color: #0b5ed7;
-  box-shadow: 0 0 0 3px rgba(11, 94, 215, 0.15);
+  border-color: #ea580c;
+  box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15);
 }
 
 .field select:disabled {
@@ -173,10 +211,9 @@ body {
   cursor: not-allowed;
 }
 
-/* alias kept for SearchFilters.jsx (uses btn-navy instead of btn-primary) */
 .btn-primary,
 .btn-navy {
-  background: #0b5ed7;
+  background: #f97316;
   color: white;
 }
 
@@ -205,12 +242,12 @@ body {
 
 .btn-outline {
   background: white;
-  color: #0b5ed7;
-  border: 1px solid #0b5ed7;
+  color: #ea580c;
+  border: 1px solid #ea580c;
 }
 
 .btn-outline:hover {
-  background: #eff6ff;
+  background: #fff7ed;
 }
 
 /* ===== Info banner ===== */
@@ -218,9 +255,9 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #eef4ff;
-  border: 1px solid #cfe0ff;
-  color: #1e40af;
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  color: #9a3412;
   border-radius: 10px;
   padding: 12px 16px;
   margin-top: 18px;
@@ -233,8 +270,8 @@ body {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 18px;
+  gap: 3px;
+  margin-bottom: 5px;
 }
 
 .results-actions {
@@ -269,15 +306,6 @@ body {
   border: 1px solid #e5e7eb;
 }
 
-/* table-layout: fixed + min-width is the actual fix for the column-
-   overlap bug: with the default "auto" layout, the browser has to
-   guess each column's width from content, and once two columns
-   (Address / Institute) were both allowed to wrap instead of
-   truncate, the guess broke down and their text rendered on top of
-   itself. Fixed layout removes the guessing - every column's width
-   comes from the col-* classes below (set on the <th> cells), and if
-   the table is narrower than min-width the .table-wrapper's
-   horizontal scroll kicks in instead of columns collapsing. */
 table.results-table {
   width: 100%;
   border-collapse: collapse;
@@ -287,7 +315,7 @@ table.results-table {
 }
 
 .results-table thead {
-  background: #0b3d91;
+  background: #ea580c;
   color: white;
 }
 
@@ -298,36 +326,18 @@ table.results-table {
   white-space: nowrap;
 }
 
-/* .results-table td {
-  padding: 14px 18px;
-  border-bottom: 1px solid #eef0f4;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-} */
-
-
-
-
-
 .results-table td {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.col-address,
 .col-institute {
-  white-space: normal;   /* meant to override the above, but doesn't */
-  
+  white-space: normal;
 }
 
-
-
-
-
 .results-table tbody tr:hover {
-  background: #f8fafc;
+  background: #fff7ed;
 }
 
 .results-table tbody tr:last-child td {
@@ -340,22 +350,17 @@ table.results-table {
 }
 
 .institute-link {
-  color: #2563eb;
+  color: #ea580c;
 }
 
-/* ===== Fixed column-width classes =====
-   Applied on <th> to size the column (table-layout: fixed reads
-   widths from the first row / header cells) and on the matching <td>
-   to enable wrapping where needed. Shared by both the volunteer
-   Dashboard table (SearchResults.jsx) and the Admin Dashboard voter
-   table (AdminDashboard.jsx), even though their column order differs,
-   since both use these same class names rather than nth-child. */
+/* ===== Fixed column-width classes ===== */
 .col-id {
   width: 70px;
+  white-space: nowrap;
 }
 
 .col-name {
-  width: 170px;
+  width: 260px;
   white-space: normal;
   word-break: break-word;
 }
@@ -373,7 +378,6 @@ table.results-table {
   white-space: normal;
 }
 
-.col-address,
 .col-institute {
   width: 230px;
   white-space: normal;
@@ -388,19 +392,16 @@ table.results-table {
   padding: 24px 18px;
   white-space: normal;
 }
-/* ===== Click-to-expand cell (Address / Institute) =====
-   Replaces the old title-attribute tooltip, which auto-hid after ~2s
-   and made the text impossible to select/copy. Clicking the cell now
-   opens a small modal with the full value and a Copy button that
-   stays open until the user closes it or clicks outside. */
+
+/* ===== Click-to-expand cell (Address / Institute) ===== */
 .clickable-cell {
   cursor: pointer;
 }
 
 .clickable-cell:hover {
-  background: #eef4ff;
+  background: #fff7ed;
   text-decoration: underline;
-  text-decoration-color: #93c5fd;
+  text-decoration-color: #fdba74;
 }
 
 .cell-modal-overlay {
@@ -430,7 +431,7 @@ table.results-table {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #0b3d91;
+  background: linear-gradient(135deg, #f97316, #ea580c);
   color: #fff;
   padding: 14px 18px;
   font-weight: 700;
@@ -469,16 +470,13 @@ table.results-table {
   justify-content: flex-end;
 }
 
-/* Voter Name on Admin Dashboard: keep it on one line instead of
-   wrapping the row taller. Overrides .col-name's white-space/word-break.
-   Full name is still reachable via the click-to-expand modal
-   (.clickable-cell) since it's truncated with an ellipsis here. */
 .col-name-nowrap {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* ===== Mobile table: freeze Voter Name column, improve spacing ===== */
+
+/* ===== Mobile table ===== */
 @media (max-width: 768px) {
   .app-main,
   .page-content {
@@ -498,8 +496,6 @@ table.results-table {
     -webkit-overflow-scrolling: touch;
   }
 
-  /* Freeze the Voter Name column so it stays visible while the rest
-     of the table scrolls horizontally underneath it. */
   .results-table th.col-name,
   .results-table td.col-name {
     position: sticky;
@@ -510,17 +506,291 @@ table.results-table {
   }
 
   .results-table thead th.col-name {
-    background: #0b3d91;
+    background: #ea580c;
     z-index: 3;
   }
 
   .results-table tbody tr:hover td.col-name {
-    background: #f8fafc;
+    background: #fff7ed;
   }
 
   .results-table tbody tr.row-done td.col-name,
   .results-table tbody tr.row-not-done td.col-name,
   .results-table tbody tr.row-pending td.col-name {
     background: #fff;
+  }
+}
+
+/* ========================================================================
+   Spacing fixes
+   ======================================================================== */
+
+/* Header -> Search Filters box: bigger gap */
+.app-main,
+.page-content {
+  margin-top: 3px;
+}
+
+/* Inside the Search Filters box: tighten space above the labels/inputs */
+.filters-card {
+  padding-top: 18px;
+  padding-bottom: 18px;
+  margin-bottom: 8px; /* Search Filters -> Search Result box: smaller gap */
+}
+
+.filters-card .section-title {
+  margin-bottom: 12px;
+}
+
+/* Search Result title -> Print/Excel/PDF row, and that row -> search box.
+   (.results-export-row / .results-search-row exist in SearchResults.jsx
+   but had no styling before, which is why that gap looked broken.) */
+.results-export-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  margin-bottom: 16px;
+}
+
+.results-search-row {
+  margin-bottom: 18px;
+}
+
+@media (max-width: 768px) {
+  .app-main,
+  .page-content {
+    margin-top: 10px;
+  }
+
+  .results-export-row .btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}
+
+/* ========================================================================
+   Print (Print button / window.print())
+   ======================================================================== */
+
+/* Hidden on screen; only shown inside @media print below. Applied to the
+   header block rendered by SearchResults.jsx (photo + title + subtitle). */
+.print-only {
+  display: none;
+}
+
+@media print {
+  .print-only {
+    display: flex;
+  }
+
+  .print-header {
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #ea580c;
+  }
+
+  .print-header-photo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .print-header-line1 {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0;
+    color: #1f2937;
+  }
+
+  .print-header-line2 {
+    font-size: 11px;
+    margin: 2px 0 0;
+    color: #6b7280;
+  }
+
+  /* Make sure the orange backgrounds/photo actually print instead of
+     being stripped out by the browser's default print styles. */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  /* The on-screen header and filters card aren't useful on a printed
+     voter list - the .print-header above replaces the header, and
+     filters are just search state, not data. */
+  .header,
+  .filters-card {
+    display: none !important;
+  }
+
+  .card {
+    box-shadow: none !important;
+    border: 1px solid #e5e7eb;
+  }
+
+  body {
+    background: #fff;
+  }
+}
+@font-face {
+  font-family: 'Noto Sans Devanagari';
+  src: url('./assets/fonts/NotoSansDevanagari-Regular.ttf') format('truetype');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Noto Sans Devanagari';
+  src: url('./assets/fonts/NotoSansDevanagari-Bold.ttf') format('truetype');
+  font-weight: bold;
+}
+
+body {
+  font-family: 'Noto Sans Devanagari', sans-serif;
+}
+
+.results-table td.col-id,
+.results-table th.col-id {
+  padding-left: 14px;
+  padding-right: 14px;
+}
+
+/* ========================================================================
+   Searchable Dropdown (Village / Institute filters)
+   ======================================================================== */
+
+.searchable-dropdown {
+  position: relative;
+}
+
+.sd-control {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  height: 45px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 0 12px;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  color: #1f2937;
+  box-sizing: border-box;
+}
+
+.sd-control--open {
+  border-color: #ea580c;
+  box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15);
+}
+
+.sd-value {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sd-value--placeholder {
+  color: #9ca3af;
+}
+
+.sd-clear {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #9ca3af;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  flex-shrink: 0;
+}
+
+.sd-clear:hover {
+  color: #dc2626;
+}
+
+.sd-chevron {
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+.sd-panel {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+  z-index: 30;
+  overflow: hidden;
+}
+
+.sd-search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.sd-search svg {
+  color: #9ca3af;
+  flex-shrink: 0;
+}
+
+.sd-search input {
+  border: none;
+  outline: none;
+  font-size: 14px;
+  width: 100%;
+  padding: 2px 0;
+  font-family: inherit;
+}
+
+.sd-options {
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.sd-option {
+  padding: 10px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #1f2937;
+}
+
+.sd-option:hover {
+  background: #fff7ed;
+}
+
+.sd-option--selected {
+  background: #ffedd5;
+  font-weight: 600;
+  color: #ea580c;
+}
+
+.sd-empty {
+  padding: 14px;
+  font-size: 13px;
+  color: #9ca3af;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .sd-panel {
+    max-height: 260px;
   }
 }
