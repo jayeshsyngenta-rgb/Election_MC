@@ -1,4 +1,7 @@
-/* ===== Login page — exact banner replica, v10 (full body visible) ===== */
+/* ===== Login page — Amazon-style fixed breakpoints, mobile-first =====
+   Imported by Login.jsx as "./login-additions.css".
+   Base = mobile (stacked, no side photo). Override upward at 576 / 900.
+   ======================================================================== */
 
 * {
   box-sizing: border-box;
@@ -8,48 +11,80 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(115deg, #fbead0 0%, #fcd9a0 25%, #f7a94a 55%, #ee7a1f 85%, #e0521a 100% );
+  background: linear-gradient(115deg, #fbead0 0%, #fcd9a0 25%, #f7a94a 55%, #ee7a1f 85%, #e0521a 100%);
   font-family: "Noto Sans Devanagari", "Segoe UI", sans-serif;
   overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
 }
 
-/* ---- Hero section ---- */
+/* ---- Hero section: stacked on mobile, side-by-side from 900px up ---- */
 .login-hero {
   flex: 1;
   display: flex;
+  flex-direction: column;
   align-items: stretch;
   position: relative;
-  min-height: 640px;
+  min-height: unset;
+  width: 100%;
+  max-width: 100%;
+}
+@media (min-width: 900px) {
+  .login-hero {
+    flex-direction: row;
+    align-items: stretch;
+    min-height: 640px;
+  }
 }
 
 .hero-photo-wrap {
   position: relative;
-  flex: 0 0 46%;
-  max-width: 650px;
+  flex: none;
+  max-width: 100%;
+  height: 280px;
   overflow: hidden;
   background: transparent;
+}
+@media (min-width: 480px) {
+  .hero-photo-wrap {
+    height: 340px;
+  }
+}
+@media (min-width: 576px) {
+  .hero-photo-wrap {
+    height: 400px;
+  }
+}
+@media (min-width: 768px) {
+  .hero-photo-wrap {
+    height: 470px;
+  }
+}
+@media (min-width: 900px) {
+  .hero-photo-wrap {
+    flex: 0 0 46%;
+    max-width: 650px;
+    height: auto;
+  }
 }
 
 .hero-photo {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 30% 35%;
+  object-position: 50% 22%;
   display: block;
   filter: contrast(1.08) saturate(1.1) brightness(1.02);
 
-  -webkit-mask-image: linear-gradient(
-    90deg,
-    #000 82%,
-    rgba(0, 0, 0, 0.6) 92%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    90deg,
-    #000 82%,
-    rgba(0, 0, 0, 0.6) 92%,
-    transparent 100%
-  );
+  -webkit-mask-image: linear-gradient(180deg, #000 80%, rgba(0, 0, 0, 0.55) 90%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 80%, rgba(0, 0, 0, 0.55) 90%, transparent 100%);
+}
+@media (min-width: 900px) {
+  .hero-photo {
+    object-position: 30% 35%;
+    -webkit-mask-image: linear-gradient(90deg, #000 82%, rgba(0, 0, 0, 0.6) 92%, transparent 100%);
+    mask-image: linear-gradient(90deg, #000 82%, rgba(0, 0, 0, 0.6) 92%, transparent 100%);
+  }
 }
 
 .hero-photo-fade {
@@ -62,9 +97,23 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 32px 40px 32px 8px;
-  gap: 18px;
+  padding: 20px 20px 28px;
+  gap: 14px;
   min-width: 0;
+  max-width: 100%;
+  width: 100%;
+}
+@media (min-width: 576px) {
+  .hero-right {
+    padding: 24px 28px 30px;
+    gap: 16px;
+  }
+}
+@media (min-width: 900px) {
+  .hero-right {
+    padding: 32px 40px 32px 8px;
+    gap: 18px;
+  }
 }
 
 .hero-heading {
@@ -74,19 +123,37 @@
 }
 
 .hero-name {
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   font-weight: 800;
   color: #7a1500;
   margin: 0 0 4px;
-  line-height: 1.1;
+  line-height: 1.15;
   text-align: center;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+@media (min-width: 576px) {
+  .hero-name {
+    font-size: 2rem;
+  }
+}
+@media (min-width: 900px) {
+  .hero-name {
+    font-size: 2.5rem;
+  }
 }
 
 .hero-sub {
-  font-size: 1.1rem;
+  font-size: 0.92rem;
   font-weight: 600;
   color: #7a2c0a;
   margin: 2px 0;
+  overflow-wrap: break-word;
+}
+@media (min-width: 900px) {
+  .hero-sub {
+    font-size: 1.1rem;
+  }
 }
 
 .hero-year {
@@ -99,34 +166,52 @@
   width: 100%;
   max-width: 400px;
   background: #fdf6ea;
-  border-radius: 16px;
-  padding: 26px 24px 22px;
+  border-radius: 14px;
+  padding: 22px 18px 20px;
   box-shadow: 0 18px 40px rgba(120, 40, 0, 0.25);
+  min-width: 0;
+}
+@media (min-width: 576px) {
+  .login-card {
+    border-radius: 16px;
+    padding: 26px 24px 22px;
+  }
 }
 
 .login-card-title {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 800;
   color: #7a1500;
   margin: 0 0 18px;
+}
+@media (min-width: 576px) {
+  .login-card-title {
+    font-size: 1.25rem;
+  }
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .field-icon {
   position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .field-icon-svg {
   position: absolute;
-  left: 15px;
+  left: 14px;
   top: 50%;
   transform: translateY(-50%);
   color: #8a8a8a;
@@ -135,13 +220,21 @@
 
 .field-icon input {
   width: 100%;
-  padding: 14px 15px 14px 44px;
+  max-width: 100%;
+  min-width: 0;
+  padding: 13px 14px 13px 42px;
   border-radius: 8px;
   border: 1px solid #e3ded3;
   background: #fff;
-  font-size: 0.96rem;
+  font-size: 0.92rem;
   outline: none;
   transition: border-color 0.15s, box-shadow 0.15s;
+}
+@media (min-width: 576px) {
+  .field-icon input {
+    padding: 14px 15px 14px 44px;
+    font-size: 0.96rem;
+  }
 }
 
 .field-icon input::placeholder {
@@ -157,25 +250,34 @@
   color: #dc3545;
   font-size: 0.85rem;
   margin: 0;
+  overflow-wrap: break-word;
 }
 
 .btn-login {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 14px;
+  padding: 13px;
   border: none;
   border-radius: 8px;
   background: linear-gradient(135deg, #f2621a, #c9330a);
   color: #fff;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.95rem;
   cursor: pointer;
   box-shadow: 0 8px 18px rgba(201, 51, 10, 0.35);
   transition: transform 0.12s, box-shadow 0.12s;
   margin-top: 2px;
+}
+@media (min-width: 576px) {
+  .btn-login {
+    padding: 14px;
+    font-size: 1rem;
+  }
 }
 
 .btn-login:hover {
@@ -205,19 +307,45 @@
 .login-footer {
   position: relative;
   background: linear-gradient(90deg, #7a1500, #a3220a);
-  padding: 20px 48px 22px;
+  padding: 18px 20px 20px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  text-align: center;
   flex-wrap: wrap;
-  gap: 18px;
-  border-top-left-radius: 40% 60px;
-  border-top-right-radius: 40% 60px;
+  gap: 16px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  max-width: 100%;
+}
+@media (min-width: 576px) {
+  .login-footer {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    padding: 20px 32px 22px;
+    gap: 18px;
+    border-top-left-radius: 40% 60px;
+    border-top-right-radius: 40% 60px;
+  }
+}
+@media (min-width: 900px) {
+  .login-footer {
+    padding: 20px 48px 22px;
+  }
 }
 
 .footer-icons {
   display: flex;
-  gap: 30px;
+  gap: 22px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+@media (min-width: 900px) {
+  .footer-icons {
+    gap: 30px;
+  }
 }
 
 .footer-icon-item {
@@ -226,29 +354,48 @@
   align-items: center;
   gap: 6px;
   color: #fff;
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   font-weight: 600;
+}
+@media (min-width: 900px) {
+  .footer-icon-item {
+    font-size: 0.8rem;
+  }
 }
 
 .footer-icon-circle {
-  width: 42px;
-  height: 42px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background: #e0521a;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+@media (min-width: 900px) {
+  .footer-icon-circle {
+    width: 42px;
+    height: 42px;
+  }
 }
 
 .footer-quote {
   color: #fff2e3;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   line-height: 1.5;
-  text-align: right;
-  max-width: 360px;
+  text-align: center;
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+@media (min-width: 576px) {
+  .footer-quote {
+    text-align: right;
+    max-width: 360px;
+    font-size: 0.9rem;
+  }
 }
 
 .quote-mark {
@@ -257,126 +404,9 @@
   vertical-align: middle;
 }
 
-/* ---- Tablet ---- */
-@media (max-width: 900px) {
-  .login-hero {
-    flex-direction: column;
-    align-items: stretch;
-    min-height: unset;
-  }
-
+/* Short-height screens (landscape phones, small laptops) */
+@media (max-height: 640px) and (max-width: 899px) {
   .hero-photo-wrap {
-    flex: none;
-    max-width: 100%;
-    height: 470px;
-  }
-
-  .hero-photo {
-    object-position: 50% 22%;
-    -webkit-mask-image: linear-gradient(
-      180deg,
-      #000 82%,
-      rgba(0, 0, 0, 0.6) 92%,
-      transparent 100%
-    );
-    mask-image: linear-gradient(
-      180deg,
-      #000 82%,
-      rgba(0, 0, 0, 0.6) 92%,
-      transparent 100%
-    );
-  }
-
-  .hero-right {
-    align-items: center;
-    padding: 20px 24px 28px;
-  }
-
-  .hero-heading {
-    text-align: center;
-    max-width: 100%;
-  }
-
-  .hero-name {
-    font-size: 2rem;
-  }
-}
-
-/* ---- Mobile ---- */
-@media (max-width: 480px) {
-  .hero-photo-wrap {
-    height: 449px; 
-  }
-
-  .hero-photo {
-    object-position: 50% 22%;
-    -webkit-mask-image: linear-gradient(
-      180deg,
-      #000 80%,
-      rgba(0, 0, 0, 0.55) 90%,
-      transparent 100%
-    );
-    mask-image: linear-gradient(
-      180deg,
-      #000 80%,
-      rgba(0, 0, 0, 0.55) 90%,
-      transparent 100%
-    );
-  }
-
-  .hero-name {
-    font-size: 1.5rem;
-  }
-
-  .hero-sub {
-    font-size: 0.92rem;
-  }
-
-  .login-card {
-    padding: 22px 18px 20px;
-    border-radius: 14px;
-    max-width: 100%;
-  }
-
-  .login-card-title {
-    font-size: 1.1rem;
-  }
-
-  .field-icon input {
-    padding: 13px 14px 13px 42px;
-    font-size: 0.92rem;
-  }
-
-  .btn-login {
-    padding: 13px;
-    font-size: 0.95rem;
-  }
-
-  .login-footer {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 18px 20px 20px;
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
-  }
-
-  .footer-icons {
-    gap: 22px;
-  }
-
-  .footer-icon-circle {
-    width: 38px;
-    height: 38px;
-  }
-
-  .footer-icon-item {
-    font-size: 0.72rem;
-  }
-
-  .footer-quote {
-    text-align: center;
-    max-width: 100%;
-    font-size: 0.82rem;
+    height: 220px;
   }
 }
