@@ -1,7 +1,7 @@
 const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 function getToken() {
-  return localStorage.getItem("adminDashToken");
+  return localStorage.getItem("adminToken");
 }
 
 async function getJSON(path, signal) {
@@ -41,7 +41,7 @@ async function getJSONAuthed(path) {
     headers: { Authorization: `Bearer ${getToken()}` },
   });
   if (res.status === 401 || res.status === 403) {
-    localStorage.removeItem("adminDashToken");
+    localStorage.removeItem("adminToken");
     const err = new Error("Unauthorized");
     err.unauthorized = true;
     throw err;
@@ -55,7 +55,7 @@ async function downloadAuthed(path, filename) {
     headers: { Authorization: `Bearer ${getToken()}` },
   });
   if (res.status === 401 || res.status === 403) {
-    localStorage.removeItem("adminDashToken");
+    localStorage.removeItem("adminToken");
     const err = new Error("Unauthorized");
     err.unauthorized = true;
     throw err;

@@ -1,3 +1,5 @@
+
+Status colors · CSS
 .header-admin-btn {
   margin-left: 12px;
   padding: 6px 14px;
@@ -5,8 +7,15 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  /* Added: NOTE - header-additions.css also defines .header-admin-btn
+     with its own background/padding/box-shadow. Whichever file's
+     <link>/import comes second wins per-property (CSS doesn't merge
+     "whole rules" - it resolves each property independently by source
+     order for equal specificity). Not changed here since I can't tell
+     which version is the intended one - flagging so you can pick. */
+  white-space: nowrap;
 }
-
+ 
 /* Total records badge, top-right of results header */
 .results-header {
   display: flex;
@@ -15,7 +24,7 @@
   flex-wrap: wrap;
   gap: 10px;
 }
-
+ 
 .total-records-badge {
   margin-left: auto;
   padding: 6px 14px;
@@ -25,26 +34,20 @@
   font-size: 14px;
   white-space: nowrap;
 }
-
+ 
 .total-records-badge strong {
   font-size: 15px;
 }
-
+ 
 /* Village / Taluka: force these narrow so the browser doesn't stretch
    them to fill leftover space now that Address/Institute wrap instead
    of truncating. Applied via a shared class added on the <th>/<td> in
    SearchResults.jsx and AdminDashboard.jsx. */
-/* .col-narrow {
-  width: 110px;
-  max-width: 110px;
-  white-space: normal;
-  word-break: break-word;
-} */
 .col-narrow {
   width: 110px;
   max-width: 110px;
 }
-
+ 
 .results-table td.col-narrow {
   white-space: normal;
   word-break: break-word;
@@ -57,16 +60,19 @@
   background-color: #f8d7da;
 }
 .row-pending {
-  /* was #fff3cd (yellow) - now the lightest blue tone */
   background-color: #dbeafe;
 }
-
+ 
 /* Status action buttons in the results table */
 .status-buttons {
   display: flex;
   gap: 6px;
+  /* Added: three icon buttons at 30-34px each plus gaps is roughly
+     100px+ - safe in a table cell, but wrapping is a free safety net
+     if this cell is ever narrower than that on a very tight table. */
+  flex-wrap: wrap;
 }
-
+ 
 .status-btn {
   display: inline-flex;
   align-items: center;
@@ -79,17 +85,18 @@
   cursor: pointer;
   opacity: 0.5;
   transition: opacity 0.15s ease, transform 0.1s ease;
+  flex-shrink: 0;
 }
-
+ 
 .status-btn:hover:not(:disabled) {
   opacity: 0.85;
   transform: scale(1.05);
 }
-
+ 
 .status-btn:disabled {
   cursor: not-allowed;
 }
-
+ 
 .status-btn-done {
   color: #1e7e34;
   border-color: #1e7e34;
@@ -99,7 +106,7 @@
   color: #fff;
   opacity: 1;
 }
-
+ 
 .status-btn-not-done {
   color: #a71d2a;
   border-color: #a71d2a;
@@ -109,91 +116,76 @@
   color: #fff;
   opacity: 1;
 }
-
+ 
 .status-btn-pending {
-  /* was amber/brown (#85640a) - now a blue tone to match the theme */
   color: #1d4ed8;
   border-color: #1d4ed8;
 }
 .status-btn-pending.active {
-  /* was #ffc107 (yellow) - now blue, lightest-shade friendly with white text */
   background: #3b82f6;
   color: #fff;
   opacity: 1;
 }
-
+ 
 /* ===== Mobile responsive ===== */
 @media (max-width: 768px) {
-  /* Header: stack the brand and the date/time/user/logout row instead
-     of squeezing them onto one line. */
   .header-inner {
     flex-direction: column;
     align-items: flex-start;
   }
-
+ 
   .header-right {
     width: 100%;
     justify-content: flex-start;
   }
-
-  /* Filters: one column instead of four, so each dropdown gets full
-     width and stays readable/tappable. */
+ 
   .filters-grid {
     grid-template-columns: 1fr;
   }
-
-  /* Results header: stack the title, total-records badge, search box,
-     and print button instead of wrapping awkwardly. */
+ 
   .results-actions {
     width: 100%;
   }
-
+ 
   .search-box {
     min-width: 0;
     width: 100%;
   }
-
+ 
   .card {
     padding: 18px 16px;
   }
-
-  /* Table: keep horizontal scroll (already set via .table-wrapper),
-     but pin the Voter Name / Name column so it's always visible while
-     the rest of the row scrolls underneath - the reader never loses
-     track of whose row they're looking at. Only ONE column is made
-     sticky (not several) because position: sticky needs each sticky
-     column to be offset by the combined width of every sticky column
-     before it - and since the two tables have different columns
-     before Name (Part No + Sr No vs just Sr No), a shared left-offset
-     would be wrong for one of them. Sticking a single column avoids
-     that problem entirely: left: 0 works no matter how many ordinary
-     (non-sticky) columns come before it. */
+ 
+  /* NOTE (not changed): this sets the sticky Name column's header
+     background to the old navy #0b3d91, while index.css/app.css set
+     the same selector to the current orange theme (#ea580c). Whichever
+     file loads last wins here - worth reconciling so mobile doesn't
+     show a navy patch on an otherwise all-orange header row. */
   .results-table th.col-name,
   .results-table td.col-name {
     position: sticky;
     left: 0;
     z-index: 1;
   }
-
+ 
   .results-table thead th.col-name {
     z-index: 2;
     background: #0b3d91;
   }
-
+ 
   .results-table tbody td.col-name {
     background-color: inherit;
   }
-
-  /* Shrink padding a bit so more content fits per screen without
-     making tap targets too small. */
+ 
   .results-table th,
   .results-table td {
     padding: 10px 12px;
     font-size: 13px;
   }
-
+ 
   .status-btn {
     width: 34px;
     height: 34px;
   }
 }
+ 
