@@ -797,6 +797,45 @@ table.results-table {
   text-align: center;
 }
 
+/* ===== Admin stats grid: 2-col on mobile, 4-col at md+ =====
+   Double-class selector beats the single-class .filters-grid 1-col
+   override in status-colors.css without needing !important. */
+.filters-grid.stats-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+@media (max-width: 768px) {
+  .filters-grid.stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+@media (min-width: 769px) {
+  .filters-grid.stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ===== Mobile: full-width action buttons ===== */
+@media (max-width: 575px) {
+  .filters-actions .btn,
+  .results-export-row .btn {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}
+
+/* ===== Prevent logout/action buttons from shrinking the title ===== */
+.results-header .btn {
+  flex-shrink: 0;
+}
+
+/* ===== Admin stats number: scale down on tiny screens ===== */
+@media (max-width: 400px) {
+  .stats-grid strong {
+    font-size: 20px !important;
+  }
+}
+
 /* ========================================================================
    PRINT (Print button / window.print() / Save-as-PDF)
    ------------------------------------------------------------------------

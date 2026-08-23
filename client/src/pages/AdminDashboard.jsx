@@ -308,7 +308,7 @@ useEffect(() => {
 
           {stats && (
             <>
-              <div className="filters-grid" style={{ marginBottom: 20 }}>
+              <div className="filters-grid stats-grid" style={{ marginBottom: 20 }}>
                 <div className="field">
                   <label>Total Voters</label>
                   <strong style={{ fontSize: 24, color: "#0b3d91" }}>

@@ -109,12 +109,14 @@ body {
   background: rgba(255, 255, 255, 0.28);
 }
 
-/* ===== Page container ===== */
-.app-main,
-.page-content {
-  max-width: 1400px;
-  margin: 30px auto;
-  padding: 0 30px 60px;
+/* ===== Page container (desktop baseline — App.css handles mobile-first overrides) ===== */
+@media (min-width: 1280px) {
+  .app-main,
+  .page-content {
+    max-width: 1400px;
+    margin: 30px auto;
+    padding: 0 30px 60px;
+  }
 }
 
 /* ===== Card ===== */
@@ -289,7 +291,8 @@ body {
   border-radius: 8px;
   padding: 0 12px;
   height: 42px;
-  min-width: 240px;
+  min-width: 0;
+  width: 100%;
 }
 
 .search-box input {
