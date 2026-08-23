@@ -620,17 +620,22 @@ export default function SearchResults({
     const originalTitle = document.title;
     document.title = id;
 
-    // Chrome's print renderer lays out at the current screen viewport width
-    // (often mobile-narrow), which clips the table to only a few columns even
-    // with overflow:visible in @media print. Forcing a desktop minWidth here
-    // makes Chrome reflow the full-width table before freezing the print
-    // layout. afterprint restores it so nothing else is affected.
+    // Use mm so the layout width matches the @page printable area exactly,
+    // regardless of device DPI or zoom level. 277mm = A4 landscape (297mm)
+    // minus 10mm margins on each side — identical on every device.
     const originalMinWidth = document.body.style.minWidth;
-    document.body.style.minWidth = "1050px";
+    document.body.style.minWidth = "277mm";
+
+    // Reset horizontal scroll on the table wrapper so print always starts
+    // from the leftmost column (Part No), not wherever the user had scrolled.
+    const tableWrapper = document.querySelector(".table-wrapper");
+    const savedScrollLeft = tableWrapper ? tableWrapper.scrollLeft : 0;
+    if (tableWrapper) tableWrapper.scrollLeft = 0;
 
     const restore = () => {
       document.title = originalTitle;
       document.body.style.minWidth = originalMinWidth;
+      if (tableWrapper) tableWrapper.scrollLeft = savedScrollLeft;
       window.removeEventListener("afterprint", restore);
     };
     window.addEventListener("afterprint", restore);
