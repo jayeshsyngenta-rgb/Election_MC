@@ -159,6 +159,7 @@ body {
 .field {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .field label {
@@ -705,6 +706,7 @@ body {
 
 .sd-value {
   flex: 1;
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
