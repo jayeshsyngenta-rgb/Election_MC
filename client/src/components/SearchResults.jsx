@@ -474,7 +474,7 @@ function cleanVoterName(name) {
 // Shared header text used on the printed page, PDF export, and Excel
 // export, so all three match the on-screen header. Trimmed to just the
 // name + one combined subtitle line (role/institute lines removed).
-const ORG_HEADER_NAME = "श्री. कौस्तुभ मुरलीधर गावडे";
+const ORG_HEADER_NAME = "श्री. मंगेश चिवटे";
 const ORG_HEADER_SUB = "उमेदवार – पुणे विभाग शिक्षक मतदारसंघ निवडणूक 2026";
 
 const EXPORT_COLUMNS = [
@@ -617,18 +617,23 @@ export default function SearchResults({
     const id = generateUniqueId(filters?.district, filters?.institute);
     setPrintId(id);
 
-    // The browser's Print > Save as PDF dialog uses document.title as
-    // the default filename - swap it to the Doc ID before printing so
-    // the saved PDF is named after the unique ID, then restore the
-    // original title once the print dialog closes.
     const originalTitle = document.title;
     document.title = id;
 
-    const restoreTitle = () => {
+    // Chrome's print renderer lays out at the current screen viewport width
+    // (often mobile-narrow), which clips the table to only a few columns even
+    // with overflow:visible in @media print. Forcing a desktop minWidth here
+    // makes Chrome reflow the full-width table before freezing the print
+    // layout. afterprint restores it so nothing else is affected.
+    const originalMinWidth = document.body.style.minWidth;
+    document.body.style.minWidth = "1050px";
+
+    const restore = () => {
       document.title = originalTitle;
-      window.removeEventListener("afterprint", restoreTitle);
+      document.body.style.minWidth = originalMinWidth;
+      window.removeEventListener("afterprint", restore);
     };
-    window.addEventListener("afterprint", restoreTitle);
+    window.addEventListener("afterprint", restore);
 
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
@@ -681,21 +686,9 @@ export default function SearchResults({
       // kept in case Devanagari ever appears in Address/Institute).
       await registerDevanagariFont(doc);
 
-      // ---- Header: photo + Marathi text rendered as an image ----
-      const photoX = 14;
-      const photoY = 6; // trimmed top margin
-      const photoSize = 22;
-      let textX = photoX + photoSize + 8;
-
-      try {
-        const photoBase64 = await getImageBase64(chiefPhoto);
-        doc.addImage(photoBase64, "PNG", photoX, photoY, photoSize, photoSize);
-      } catch (err) {
-        // If the photo fails to load for any reason, fall back to a
-        // text-only header rather than breaking the whole export.
-        console.error("Could not embed photo in PDF:", err);
-        textX = photoX;
-      }
+      // ---- Header: Marathi text rendered as an image (no photo) ----
+      const headerX = 14;
+      const headerY = 6;
 
       const { dataUrl: headerImg, width: hImgW, height: hImgH } =
         await renderMarathiHeaderToImage();
@@ -705,14 +698,13 @@ export default function SearchResults({
       doc.addImage(
         headerImg,
         "PNG",
-        textX,
-        photoY - 2,
+        headerX,
+        headerY,
         headerImgMmWidth,
         headerImgMmHeight,
       );
 
-      const tableStartY =
-        Math.max(photoY + photoSize, photoY - 2 + headerImgMmHeight) + 8;
+      const tableStartY = headerY + headerImgMmHeight + 8;
 
       // ---- Table ----
       autoTable(doc, {
@@ -728,7 +720,7 @@ export default function SearchResults({
           font: "NotoSansDevanagari", // voter names/addresses are Devanagari
         },
         headStyles: {
-          fillColor: [29, 78, 216], // blue theme (#1d4ed8)
+          fillColor: [234, 88, 12], // orange theme (#ea580c)
           font: "NotoSansDevanagari",
           fontStyle: "bold",
         },
@@ -797,7 +789,6 @@ export default function SearchResults({
       {/* Print-only header - hidden on screen, shown at the top of the
           printed page via CSS (@media print in App.css). */}
       <div className="print-only print-header">
-        <img src={chiefPhoto} alt="" className="print-header-photo" />
         <div>
           <p className="print-header-name">{ORG_HEADER_NAME}</p>
           <p className="print-header-sub">{ORG_HEADER_SUB}</p>

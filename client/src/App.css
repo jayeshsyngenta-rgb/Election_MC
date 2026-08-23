@@ -911,23 +911,51 @@ table.results-table {
   .filters-card {
     display: none !important;
   }
+  /* Remove all overflow clipping from ancestor containers so the table can
+     expand to full A4 landscape width instead of being constrained to the
+     mobile screen viewport width. */
+  html,
+  body {
+    overflow: visible !important;
+    width: 100% !important;
+    background: #fff;
+  }
+  .app-shell,
+  .app-main,
+  .page-content {
+    overflow: visible !important;
+    width: 100% !important;
+    max-width: none !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
   .card {
     box-shadow: none !important;
     border: 1px solid #e5e7eb;
     padding: 10px !important;
-  }
-  body {
-    background: #fff;
+    overflow: visible !important;
   }
   .table-wrapper {
     overflow: visible !important;
     border: none !important;
+    max-width: none !important;
+    width: 100% !important;
+  }
+  /* Reset sticky Voter Name column — browsers treat the print viewport as
+     mobile-width, which triggers the max-width:767px sticky rule and causes
+     the Voter Name column to float outside the normal table flow in the PDF. */
+  .results-table th.col-name,
+  .results-table td.col-name {
+    position: static !important;
+    left: auto !important;
+    z-index: auto !important;
+    box-shadow: none !important;
   }
   table.results-table {
     min-width: 0 !important;
     width: 100% !important;
-    table-layout: auto !important;
-    font-size: 10.5px !important;
+    table-layout: fixed !important;
+    font-size: 9px !important;
   }
   .results-table th,
   .results-table td {
@@ -935,19 +963,33 @@ table.results-table {
     overflow: visible !important;
     text-overflow: unset !important;
     word-break: break-word;
-    padding: 6px 8px !important;
+    padding: 5px 6px !important;
   }
-  .col-id,
-  .col-name,
-  .col-mobile,
-  .col-district,
-  .col-institute,
-  .col-narrow {
+  /* Percentage widths so all 7 columns (Status hidden) fit A4 landscape */
+  .col-id {
+    width: 7% !important;
+    max-width: none !important;
+  }
+  .col-name {
+    width: 22% !important;
+    max-width: none !important;
+  }
+  .col-mobile {
+    width: 11% !important;
+    max-width: none !important;
+  }
+  .col-district {
     width: auto !important;
     max-width: none !important;
   }
   .col-institute {
-    min-width: 160px;
+    width: 28% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+  }
+  .col-narrow {
+    width: 12% !important;
+    max-width: none !important;
   }
   .col-status,
   th.col-status,
