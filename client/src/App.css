@@ -652,19 +652,22 @@ table.results-table {
   display: flex;
   align-items: center;
   gap: 8px;
-  flex-wrap: wrap;
+  /* nowrap so Print/Excel/PDF always stay on one horizontal row */
+  flex-wrap: nowrap;
   margin-top: 8px;
   margin-bottom: 12px;
+}
+/* Buttons always share the row equally at all screen sizes */
+.results-export-row .btn {
+  flex: 1 1 0;
+  justify-content: center;
+  min-width: 0;
 }
 @media (min-width: 768px) {
   .results-export-row {
     gap: 12px;
     margin-top: 10px;
     margin-bottom: 16px;
-  }
-  .results-export-row .btn {
-    flex: 1 1 auto;
-    justify-content: center;
   }
 }
 
@@ -829,8 +832,7 @@ table.results-table {
 
 /* ===== Mobile: full-width action buttons ===== */
 @media (max-width: 575px) {
-  .filters-actions .btn,
-  .results-export-row .btn {
+  .filters-actions .btn {
     flex: 1 1 100%;
     justify-content: center;
   }

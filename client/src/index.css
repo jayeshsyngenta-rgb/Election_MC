@@ -559,9 +559,17 @@ table.results-table {
   display: flex;
   align-items: center;
   gap: 12px;
-  flex-wrap: wrap;
+  /* nowrap: Print/Excel/PDF always on one row at every screen width */
+  flex-wrap: nowrap;
   margin-top: 10px;
   margin-bottom: 16px;
+}
+
+/* Equal-width buttons that shrink to fit any narrow screen */
+.results-export-row .btn {
+  flex: 1 1 0;
+  min-width: 0;
+  justify-content: center;
 }
 
 .results-search-row {
@@ -572,11 +580,6 @@ table.results-table {
   .app-main,
   .page-content {
     margin-top: 10px;
-  }
-
-  .results-export-row .btn {
-    flex: 1 1 auto;
-    justify-content: center;
   }
 }
 
