@@ -96,7 +96,7 @@
 }
 
 .admin-login-form label {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   color: #374151;
   margin-bottom: 6px;
@@ -149,7 +149,7 @@
 
 .admin-login-error {
   margin: 0;
-  font-size: 13px;
+  font-size: 14px;
   color: #dc2626;
   background: none;
   word-break: break-word;
@@ -199,7 +199,7 @@
 
 .admin-login-footer {
   text-align: center;
-  font-size: 12px;
+  font-size: 13px;
   color: #9ca3af;
   margin: 20px 0 0;
   background: none;
@@ -238,7 +238,7 @@
   }
 
   .admin-field-icon {
-    height: 42px;
+    height: 44px;
   }
 
   .admin-field-icon input {
@@ -246,7 +246,7 @@
   }
 
   .admin-btn-login {
-    height: 42px;
+    height: 44px;
     font-size: 13px;
   }
 }

@@ -248,7 +248,7 @@
 
 .login-error {
   color: #dc3545;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   margin: 0;
   overflow-wrap: break-word;
 }
@@ -354,12 +354,13 @@
   align-items: center;
   gap: 6px;
   color: #fff;
-  font-size: 0.72rem;
+  /* 0.8rem ≈ 12.8px — smallest acceptable for decorative footer labels */
+  font-size: 0.8rem;
   font-weight: 600;
 }
 @media (min-width: 900px) {
   .footer-icon-item {
-    font-size: 0.8rem;
+    font-size: 0.875rem;
   }
 }
 

@@ -167,13 +167,14 @@ body {
 .field label {
   font-weight: 600;
   margin-bottom: 4px;
-  font-size: 11px;
+  /* 13px min on small mobile — below 14px but readable; 14px from 576px+ */
+  font-size: 13px;
   color: #374151;
   line-height: 1.2;
 }
 @media (min-width: 576px) {
   .field label {
-    font-size: 13px;
+    font-size: 14px;
     margin-bottom: 6px;
   }
 }
@@ -185,20 +186,21 @@ body {
 
 .field select {
   width: 100%;
-  height: 38px;
+  /* 44px meets WCAG touch-target minimum on mobile */
+  height: 44px;
   border: 1px solid #d1d5db;
   border-radius: 8px;
-  padding: 4px 6px;
-  font-size: 12px;
+  padding: 4px 8px;
+  font-size: 14px;
   background: white;
   cursor: pointer;
   max-width: 100%;
 }
 @media (min-width: 576px) {
   .field select {
-    height: 42px;
+    height: 44px;
     padding: 6px 10px;
-    font-size: 13px;
+    font-size: 14px;
   }
 }
 @media (min-width: 768px) {
@@ -239,11 +241,12 @@ body {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  height: 38px;
+  /* 44px meets WCAG touch-target minimum on mobile */
+  height: 44px;
   padding: 0 14px;
   border: none;
   border-radius: 8px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition:
@@ -253,9 +256,9 @@ body {
 }
 @media (min-width: 576px) {
   .btn {
-    height: 42px;
+    height: 44px;
     padding: 0 18px;
-    font-size: 13.5px;
+    font-size: 14px;
     gap: 8px;
   }
 }
@@ -390,13 +393,14 @@ body {
 table.results-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 12px;
+  /* 13px min on small mobile (14px causes wide columns); 14px from 768px */
+  font-size: 13px;
   table-layout: fixed;
   min-width: 900px;
 }
 @media (min-width: 768px) {
   table.results-table {
-    font-size: 13.5px;
+    font-size: 14px;
     min-width: 1150px;
   }
 }
@@ -683,21 +687,22 @@ table.results-table {
   align-items: center;
   gap: 4px;
   width: 100%;
-  height: 38px;
+  /* 44px meets WCAG touch-target minimum on mobile */
+  height: 44px;
   border: 1px solid #d1d5db;
   border-radius: 8px;
-  padding: 0 6px;
+  padding: 0 8px;
   background: white;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 14px;
   color: #1f2937;
   box-sizing: border-box;
 }
 @media (min-width: 576px) {
   .sd-control {
-    height: 42px;
+    height: 44px;
     padding: 0 10px;
-    font-size: 13px;
+    font-size: 14px;
     gap: 6px;
   }
 }
@@ -718,11 +723,11 @@ table.results-table {
   text-overflow: ellipsis;
   white-space: nowrap;
   min-width: 0;
-  font-size: 12px;
+  font-size: 14px;
 }
 @media (min-width: 576px) {
   .sd-value {
-    font-size: 13px;
+    font-size: 14px;
   }
 }
 .sd-value--placeholder {
@@ -735,7 +740,8 @@ table.results-table {
   color: #9ca3af;
   display: flex;
   align-items: center;
-  padding: 2px;
+  /* Larger padding = bigger touch area without changing visual size */
+  padding: 8px 4px;
   flex-shrink: 0;
 }
 .sd-clear:hover {
